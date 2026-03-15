@@ -155,6 +155,7 @@ function App() {
   };
 
   const handleNewChat = () => {
+    if (window.innerWidth <= 768) setIsSidebarOpen(false);
     if (!user && chats.length >= 1) {
       setShowLoginModal(true);
       return;
@@ -244,6 +245,7 @@ function App() {
 
       {/* Sidebar */}
       <div className={`sidebar ${isSidebarOpen ? "open" : "closed"}`}>
+        {isSidebarOpen && <div className="sidebar-overlay" onClick={() => setIsSidebarOpen(false)}></div>}
         <div className="sidebar-header">
           <button className="icon-button" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
             <Menu size={20} />
