@@ -7,6 +7,9 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/chat", async (req, res) => {
+  if (req.body.message === "ping") {
+    return res.json({ reply: "pong ping" });
+  }
 
   const response = await fetch("http://localhost:11434/api/generate", {
     method: "POST",

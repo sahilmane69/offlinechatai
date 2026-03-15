@@ -1,5 +1,5 @@
-import React, { useState, useRef, useLayoutEffect } from "react";
-import { Menu, ChevronDown, ArrowUp, Copy, Check } from "lucide-react";
+import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
+import { ArrowUp, Copy, Check } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -82,13 +82,26 @@ const CodeBlock = ({ node, inline, className, children, ...props }) => {
 
 
 function App() {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(() => {
+    try {
+      const saved = localStorage.getItem("chatMessages");
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.error("Error formatting chat history:", e);
+    }
+    return [];
+  });
+  
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
 
   const emptyStateRef = useRef(null);
   const logoRef = useRef(null);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    localStorage.setItem("chatMessages", JSON.stringify(messages));
+  }, [messages]);
 
   useLayoutEffect(() => {
     if (messages.length === 0 && emptyStateRef.current) {
@@ -140,15 +153,6 @@ function App() {
 
   return (
     <div className="app-container">
-      <header className="top-bar">
-        <button className="icon-button">
-          <Menu size={20} />
-        </button>
-        <div className="top-bar-title">
-          <span>Saiman</span> <span className="muted">AI</span>{" "}
-          <ChevronDown size={16} />
-        </div>
-      </header>
 
       <main
         className={`main-content ${messages.length > 0 ? "chat-active" : ""}`}
