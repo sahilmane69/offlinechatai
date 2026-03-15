@@ -121,8 +121,10 @@ function App() {
     setInputValue("");
     setLoading(true);
 
+    const apiUrl = process.env.REACT_APP_API_URL || 
+                   (window.location.hostname === "localhost" ? "http://localhost:3000" : "https://offlinechatai.onrender.com");
+    
     try {
-      const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3000";
       const res = await fetch(`${apiUrl}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -137,10 +139,12 @@ function App() {
         return c;
       }));
     } catch (err) {
-      console.error(err);
+      console.error("Connection Error:", err);
+      const errorMessage = `Error: Unable to connect to backend at ${apiUrl}. Please check your connection.`;
+      
       setChats((prevChats) => prevChats.map(c => {
         if (c.id === currentChatId) {
-          return { ...c, messages: [...c.messages, { role: "ai", content: "Error: Unable to connect to backend." }] };
+          return { ...c, messages: [...c.messages, { role: "ai", content: errorMessage }] };
         }
         return c;
       }));
