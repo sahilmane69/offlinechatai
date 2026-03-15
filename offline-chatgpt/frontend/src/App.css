@@ -201,18 +201,25 @@
 }
 
 .input-wrapper {
-  background-color: var(--panel-bg);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 24px;
   display: flex;
   align-items: center;
-  padding: 10px 16px;
+  padding: 10px 18px;
   width: 100%;
-  border: 1px solid transparent;
-  transition: all 0.3s ease;
-  min-height: 52px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 56px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
+
 .input-wrapper:focus-within {
-  border-color: rgba(255,255,255,0.2);
+  border-color: rgba(255, 45, 85, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 40px rgba(255, 45, 85, 0.2);
+  transform: translateY(-2px);
 }
 
 .chat-active .input-container {
@@ -222,9 +229,14 @@
   right: 0;
   display: flex;
   justify-content: center;
-  padding: 24px 20px;
-  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.4) 40%);
+  padding: 30px 20px;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.6) 80%);
   z-index: 20;
+  pointer-events: none;
+}
+
+.chat-active .input-container > * {
+  pointer-events: auto;
 }
 
 .chat-active .input-wrapper {
@@ -244,6 +256,16 @@
 
 .input-field::placeholder {
   color: var(--text-muted);
+}
+
+.siri-inline-logo {
+  color: white;
+  padding-left: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 8px rgba(255, 45, 85, 0.3));
 }
 
 .suggestions {
@@ -377,21 +399,24 @@
 }
 
 .send-btn {
-  background: var(--text-main);
+  background: linear-gradient(135deg, #FF2D55, #AF52DE);
   border: none;
   cursor: pointer;
-  color: var(--bg-color);
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  transition: opacity 0.2s;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 12px rgba(255, 45, 85, 0.3);
 }
 
 .send-btn:hover {
-  opacity: 0.8;
+  transform: scale(1.1) rotate(-5deg);
+  filter: brightness(1.1);
+  box-shadow: 0 6px 16px rgba(255, 45, 85, 0.5);
 }
 
 .send-btn:disabled {

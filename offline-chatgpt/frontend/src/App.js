@@ -322,10 +322,7 @@ function App() {
             </div>
 
             <div className="input-wrapper" ref={inputRef}>
-              <div
-                className="siri-inline-logo"
-                style={{ color: "white", paddingLeft: "8px" }}
-              >
+              <div className="siri-inline-logo">
                 <SaimanLogo size={24} />
               </div>
               <input
@@ -366,10 +363,7 @@ function App() {
 
             <div className="input-container">
               <div className="input-wrapper">
-                <div
-                  className="siri-inline-logo"
-                  style={{ color: "white", paddingLeft: "8px" }}
-                >
+                <div className="siri-inline-logo">
                   <SaimanLogo size={24} />
                 </div>
                 <input
